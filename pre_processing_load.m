@@ -10,7 +10,7 @@ yuan = [[ 1, 1, 1];
 
 dopplerfreq = [-1024./2:1024./2-1].'./1024.*(1/256e-6);
 
-cd ./data/nothing
+cd ./data/20180508/waving
 mat = dir('*.mat');
 for i = 1:length(mat) 
     load(mat(i).name);
@@ -28,7 +28,7 @@ for i = 1:length(mat)
     key
 end 
 close all;
-cd ../..
+cd ../../..
 
 function key
     k = waitforbuttonpress;
