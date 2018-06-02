@@ -25,16 +25,7 @@ for i = 1:length(mat)
     colormap(yuan)
     colorbar
     title(mat(i).name, 'Interpreter', 'none')
-    key
+    keypress
 end 
 close all;
 cd ../
-
-function key
-    k = waitforbuttonpress;
-    if k == 1
-        return
-    else
-        key
-    end
-end

@@ -18,6 +18,14 @@ subplot(2,2,1)
 colormap(yuan)
 subplot(2,2,3)
 colormap(yuan)
+subplot(2,2,4)
+texa={'Current Predicted State: '};
+txa = text(0,1,texa);
+txa.FontSize = 24;
+texb={'Waiting for enough data'};
+txb = text(.2,.8,texb);
+txb.FontSize = 24;
+keypress
 for MeasIdx     =   1:NrFrms
 	data = squeeze(DataStore(MeasIdx).rd_scan);
     RP          =   fft(data(2:end,:).*Win2D,NFFT,1).*FuSca/ScaWin;
@@ -54,7 +62,30 @@ for MeasIdx     =   1:NrFrms
     title('Micro-Doppler Signature')
     
     subplot(2,2,4)
+    set(gca,'visible','off')
     
+    if MeasIdx>40
+        [v p] = max(pred(MeasIdx-40,:));
+        if v<.9
+            texb = {'Transition phase'};
+        else
+            switch p
+                case 2
+                    texb = {'Walking'};
+                case 3
+                    texb = {'Sitting/Standing'};
+                case 4
+                    texb = {'Waving hands'};
+                otherwise
+                    texb = {'Nothing detected'};
+            end
+        end
+    else
+        texb = {'Waiting for enough data'};
+    end
+    delete(txb);
+    txb = text(.2,.8,texb);
+    txb.FontSize = 24;
 %     plot(pred(1:MeasIdx-40,:))
 %     xlim([1 360])
 %     ylim([-.5 1.5])
